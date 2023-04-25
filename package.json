@@ -81,6 +81,7 @@
     "socks": "^2.7.1",
     "sparse-bitfield": "^3.0.3",
     "statuses": "^2.0.1",
+    "toastr": "^2.1.4",
     "toidentifier": "^1.0.1",
     "tr46": "^3.0.0",
     "type-is": "^1.6.18",

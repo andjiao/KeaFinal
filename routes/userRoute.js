@@ -1,9 +1,7 @@
-import _ from 'lodash'
 
-import * as dotenv from 'dotenv' 
-dotenv.config();
-
+import _ from "lodash"
 import express from 'express';
+
 const router = express.Router();
 
 import { User, validate } from "../database/models/user.js";
@@ -14,14 +12,15 @@ import { renderPage } from '../render/render.js';
 const signupPage = renderPage("/login/loginPage.html",
 {
   tabTitle: "Signup Page",
-  cssLink: `<link rel="stylesheet" href="/pages/login/login.css">`,
-  scriptLink: ` <script src="/pages/login/login.js"></script>`,
+  cssLink: `<link rel="stylesheet" href="pages/login/login.css">`,
+  scriptLink: ` <script type="module" src="/pages/login/login.js"></script>`,
    
 });
 
 router.get("/signup", (req,res) => {
   res.send(signupPage); 
 })
+
 
 router.post('/signup', async (req, res) => {
   const { error } = validate(req.body); 
