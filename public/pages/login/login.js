@@ -1,4 +1,3 @@
-
 function setFormMessage(formElement, type, message) {
     const messageElement = formElement.querySelector(".form__message");
 
@@ -11,12 +10,12 @@ function setFormMessage(formElement, type, message) {
 }
 
 
-
 function setInputError(inputElement, message) {
     inputElement.classList.add("form__input--error");
    
     inputElement.parentElement.querySelector(".form__input-error-message").textContent = message;
 }
+
 
 function clearInputError(inputElement) {
     inputElement.classList.remove("form__input--error");
@@ -33,18 +32,23 @@ document.addEventListener("DOMContentLoaded", () => {
         createAccountForm.classList.remove("form--hidden");
     });
 
-
     document.querySelector("#linkLogin").addEventListener("click", e => {
         e.preventDefault();
         loginForm.classList.remove("form--hidden");
         createAccountForm.classList.add("form--hidden");
     });
 
+
+
+
+
     createAccountForm.addEventListener("submit", async(e) =>{
         e.preventDefault();
             const response = await fetch("http://localhost:8080/signup", {
                 method: "POST",
                 body: JSON.stringify({
+                    firstName: document.getElementById("signupFirstName").value,
+                    lastName: document.getElementById("signupLastName").value,
                     email: document.getElementById("signupEmail").value,
                     password: document.getElementById("signupPassword").value
                 }),
@@ -69,20 +73,31 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await fetch("http://localhost:8080/signup", {
                 method: "POST",
                 body: JSON.stringify({
-                    email: document.getElementById("signupEmail").value,
-                    password: document.getElementById("signupPassword").value
+                    email: document.getElementById("email").value,
+                    password: document.getElementById("password").value
                 }),
                 headers: {
                     "Content-type": "application/json",
                     "Accept": "application/json",
                 },
             }).then(res => res.json())
-            console.log("Data send") 
+            console.log("Login succes!") 
+
+            if (response.succes !== true){
+                setTimeout(function(){
+                    window.location.replace("/home")
+                },1500); 
+                
+            } else {
+                window.location.replace("/signup") // set notification
+                
+            }
     });
 
  
 const regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    document.querySelectorAll(".form__input").forEach(inputElement => {
+    
+document.querySelectorAll(".form__input").forEach(inputElement => {
         
         inputElement.addEventListener("blur", e => {
             if (e.target.id === "signupEmail" && e.target.value.length === 0) {

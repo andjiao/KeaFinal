@@ -1,0 +1,22 @@
+:root {
+    --color-primary: #8FBC8F;
+    --color-primary-light: #98d398d9;
+
+    --color-secondaryy: LightCoral;
+    --color-secondary-dark: Indianred;
+
+    --color-third: Maroon;
+
+    --color-error: crimson;
+    --color-success: ForestGreen;
+    --border-radius: 4px;
+
+
+    --color-text: #444444;;
+    --color-text-light: #F0FFF0;
+    --color-headings: ;
+    --color-body: #D2B48C;
+    --color-body-darker: #5c5577;
+    --color-border: #ccc;
+    --border-radius: 30px;
+  }
