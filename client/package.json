@@ -17,6 +17,7 @@
     "bootstrap": "^5.3.0",
     "svelte-navigator": "^3.2.2",
     "svelte-routing": "^1.10.0",
+    "svelte-simple-modal": "^1.5.2",
     "toastr": "^2.1.4"
   }
 }

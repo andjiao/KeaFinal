@@ -8,19 +8,25 @@
 
     let recipe = {
     title:"",
-    ingredients:[{
-        name:"",
-        quantity:"",
-    }],
     prepTime:"",
     numbPersons:0,
-    method: "",
-   
+    numbIngre:"",
+    ingredients:[{
+        name:"",
+        quantity:""
+    }],
+    method:"",
+    categories:"",
+    types:"",
+    rating:"",
+    level:"",
   };
 
   const handleIngredientChange = (event, index, key) => {
     const { value } = event.target;
     recipe.ingredients[index][key] = value;
+    console.log(index, key)
+    console.log(value)
   };
 
   const handleAddIngredient = () => {
@@ -28,18 +34,28 @@
     [...recipe.ingredients, { name: "", quantity: "" }];
   };
 
+
+
         async function createRecipe(){
-         
-                // const categoriesArray = recipe.categories.map(category => category.trim());
-    
+            /*const ingredientsArray = recipe.ingredients.map(ingredient => {
+                return { name: ingredient.name, qauntity: ingredient.quantity};
+
+             const categoriesArray = recipe.categories.map(category => category.trim());*/
+});
+
+       
+
             const recipeData = {
                 title:recipe.title,
-                ingredients:recipe.ingredients ,
-                prepTime: recipe.prepTime,
+                preptime: recipe.prepTime,
                 numbPersons:recipe.numbPersons,
+                numbIngre:recipe.numbIngre,
+                ingredients: recipe.ingredients,
                 method: recipe.method,
-                rating: recipe.rating,
-               
+                categories: recipe.categories,
+                type:recipe.types,
+                rating:recipe.rating,
+                level:recipe.level
             }
             try {
                 const response = await fetch(`${$BASE_URL}/recipes/createRecipe`,{
@@ -59,10 +75,9 @@
         } else{
         const json = await response.json()
         // $user.id = json.userid
-        navigate('/', { replace: true })
+        navigate('/recipes', { replace: true })
        
         Toastr.success("Recipe created!")
-        console.log(recipeData)
 
         }
             } catch (error) {
@@ -93,13 +108,12 @@
                     <input type="number" id="numbPersonsInput" class="form__input" bind:value={recipe.numbPersons} name="numbPersons"  placeholder="Number of persons">
                     <div class="form__input-error-message"></div> 
                 </div>
-                
 
                 <div class="form__input-group">
                     {#each recipe.ingredients as ingredient, index}
                       <input
                         type="text"
-                        id="ingredientName_"
+                        id="ingredientName"
                         class="form__input"
                         value={ingredient.name}
                         placeholder="Enter ingredients"
@@ -108,7 +122,7 @@
                       />
                       <input
                       type="text"
-                      id="ingredientQuantity"
+                      id="ingredientquantity"
                       class="form__input"
                       value={ingredient.quantity}
                       placeholder="Enter quantity"
@@ -121,22 +135,31 @@
                       Add Ingredient
                     </button>
                   </div>
+               
 
-
-
-                  <div class="form__input-group">
-
-                  </div>
-
-                  <div class="form__input-group">
+                <div class="form__input-group">
                     <input type="text" id="methodInput" class="form__input" bind:value={recipe.method} name="method" placeholder="method">
                     <div class="form__input-error-message"></div> 
                 </div>
-
+                <div class="form__input-group">
+                    <input type="text" id="categoriInput" class="form__input" bind:value={recipe.categories} name="category" placeholder="category">
+                    <div class="form__input-error-message"></div> 
+                </div>
+                <div class="form__input-group">
+                    <input type="text" id="rateInput" class="form__input" bind:value={recipe.rating} name="rating" placeholder="rate">
+                    <div class="form__input-error-message"></div> 
+                </div>
+                <div class="form__input-group">
+                    <input type="text" id="typeInput" class="form__input" bind:value={recipe.type} name="type" placeholder="type">
+                    <div class="form__input-error-message"></div> 
+                </div>
+                <div class="form__input-group">
+                    <input type="text" id="levelInput" class="form__input" bind:value={recipe.level} name="level" placeholder="level">
+                    <div class="form__input-error-message"></div> 
+                </div>
+                <button class="form__button" on:click={createRecipe}>Create</button>
 
             </form>
-
-            <button class="form__button" on:click={createRecipe}>Create</button>
 
         </div>
     </body>

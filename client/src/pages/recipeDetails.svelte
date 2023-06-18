@@ -8,6 +8,7 @@
      const recipeId = lastSegment
 
      let recipe={};
+     let ingredients =[]
 
 
     async function getRecipe() {
@@ -18,7 +19,11 @@
        if (response.ok) {
                 const result = await response.json()
                 recipe = result
+                ingredients = result.ingredients;
                 console.log(recipe)
+
+      // Convert recipe.ingredients to an array
+      recipe.ingredients = Object.entries(recipe.ingredients).map(([key, value]) => ({ name: key, quantity: value }));
               
             } else {
                 Toastr.warning('could not get recipe.')
@@ -38,12 +43,19 @@ getRecipe();
 
 
 <div>
-    <h1>DEtails</h1>
+    <h1>{recipe.title}</h1>
     <br>
-    <h2>{recipe.title}</h2>
     <br>
 
-    <h2>{recipe.rating}</h2>
+    <ul>
+        {#each ingredients as ingredient}
+          <li>
+            <h3>{ingredient.name}</h3>
+            <p>{ingredient.quantity}</p>
+          </li>
+        {/each}
+      </ul>
+      <p>{recipe.method}</p>
   
     </div>
 

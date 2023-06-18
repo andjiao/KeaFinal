@@ -39,11 +39,6 @@ import  memberRoute from './routes/memberRoute.js';
 app.use('/api/members', memberRoute);
 
 
-import reviewRoute from "./routes/reviewRoute.js";
-app.use('/api/reviewRecipe', reviewRoute);
-
-
-
 /* 
 
 import signinRoute from "./routes/signinRoute.js";
