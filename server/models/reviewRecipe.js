@@ -1,6 +1,6 @@
 
 import mongoose from 'mongoose'
-import reviewSchema from './schema/reviewSchema';
+import reviewSchema from './schema/reviewSchema.js';
 const { Schema } = mongoose;
 
 

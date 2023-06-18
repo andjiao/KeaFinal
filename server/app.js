@@ -33,14 +33,14 @@ mongoose.connect(url)
 .catch(err => console.error('Could not connect to MongoDB...'))
 
 import  recipeRouter from "./routes/recipeRoute.js";
-app.use("api/recipes", recipeRouter)
+app.use('/api/recipes', recipeRouter)
 
 import  memberRoute from './routes/memberRoute.js';
 app.use('/api/members', memberRoute);
 
 
 import reviewRoute from "./routes/reviewRoute.js";
-app.use("/api/reviewRecipe", reviewRoute);
+app.use('/api/reviewRecipe', reviewRoute);
 
 
 

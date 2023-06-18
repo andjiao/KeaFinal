@@ -1,5 +1,4 @@
-// import Joi from 'joi';
-
+import Joi from 'joi';
 
 import mongoose from 'mongoose'
 const { Schema } = mongoose;
@@ -9,8 +8,8 @@ import categorySchema from './schema/categorySchema.js';
 
 const recipeSchema = new mongoose.Schema({
     title: String,
-    prepTime: Number,
-    numbPerson: Number,
+    prepTime: String,
+    numbPersons: Number,
     numbIngre: String,
     ingredients: [ingredientSchema],
     method: String,
@@ -27,7 +26,28 @@ const recipeSchema = new mongoose.Schema({
     level: String
 });
 
-const Recipe = mongoose.model("recipe", recipeSchema);
+const Recipe = mongoose.model("recipes", recipeSchema);
+
+function validateRecipe(memberSchema) {
+    const schema = Joi.object({
+      title:Joi.string().min(2).max(255).required(),
+      prepTime:Joi.string(),
+      numbPersons:Joi.number(),
+      numbIngre:Joi.number(),
+      ingredients: Joi.array(),
+      method: Joi.string(),
+      categories: Joi.array(),
+      type: Joi.array(),
+      rating: Joi.number(),
+      numbReview: Joi.number(),
+      level: Joi.string()
+   
+    });
+  
+    return schema.validate(memberSchema);
+  }
 
 
-export default Recipe;
+
+
+export {Recipe, validateRecipe as validate};

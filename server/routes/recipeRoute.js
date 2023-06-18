@@ -7,8 +7,26 @@ const router = express.Router();
 // import {checkingUser} from "../utill/auth.js"
 // router.use(checkingUser)
 
-import Recipe from '../models/recipe.js'
+import {Recipe, validate} from '../models/recipe.js'
 // api/recipes/'287920323'
+
+
+router.post('/createRecipe', async (req, res) => {
+  try {
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+  
+    let newRecipe = new Recipe(_.pick(req.body, ["title", "preptime", "numbPersons", "numbIngre", "ingredients", "method", "categories", "type", "rating", "level"]));
+    await newRecipe.save();
+    res.send(newRecipe);
+    console.log(newRecipe);
+  } catch (err) {
+    // Handle the error here
+    console.error(err.message);
+    res.status(500).send("An error occurred while creating the recipe.");
+  }
+});
+
 
 
 // get recipeByID
@@ -28,16 +46,6 @@ router.get('/', async (req, res) => {
   });
 
 
-router.post('/', async (req, res) => {
-  // const { error } = validate(req.body); 
-    if (error) return res.status(400).send(error.details[0].message);
-  
-      let recipe = new Recipe(_.pick(req.body, ["title", "preptime", "numbPersons","numbIngre", "ingredients", "method", "categories", "type", "rating", "level"]));
-
-      await recipe.save();
-      res.send(recipe)
-  
-  });
 
   router.put('/:id', async (req, res) => {
     // const { error } = validate(req.body); 
@@ -69,8 +77,8 @@ router.post('/', async (req, res) => {
     if (!recipe) 
     return res.status(404).send('The recipe with the given ID was not found.');
 
-  
     res.send(recipe);
+    console.log("recipe deleted")
   });
   
   export default router;

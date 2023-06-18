@@ -4,9 +4,10 @@ import _ from 'lodash'
 import express from 'express';
 const router = express.Router();
 
+import ReviewRecipe from '../models/reviewRecipe.js';
+
 // import {checkingUser} from "../utill/auth.js"
- import ReviewRecipe from '../models/reviewRecipe';
-router.use(checkingUser)
+// router.use(checkingUser)
 
 // api/recipes/'287920323'
 
@@ -23,7 +24,8 @@ router.get('/:id', async (req, res) => {
 });
 
 // create RecipeReview
-router.post('/review', async (req, res) => {
+// /api/recipes/:id/reviews
+router.post('/:id/review', async (req, res) => {
     const { rating } = req.body;
 
     const reviewRecipe = await ReviewRecipe.findById(req.params.id)
@@ -57,7 +59,6 @@ router.post('/review', async (req, res) => {
 }
 else{
     res.status(400).send("ReviewRecipe not found")
-
     }
     
 });
