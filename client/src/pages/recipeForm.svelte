@@ -15,6 +15,7 @@
     prepTime:"",
     numbPersons:0,
     method: "",
+    rating:0
    
   };
 
@@ -130,6 +131,10 @@
 
                   <div class="form__input-group">
                     <input type="text" id="methodInput" class="form__input" bind:value={recipe.method} name="method" placeholder="method">
+                    <div class="form__input-error-message"></div> 
+                </div>
+                  <div class="form__input-group">
+                    <input type="text" id="ratingInput" class="form__input" bind:value={recipe.rating} name="rating" placeholder="rating">
                     <div class="form__input-error-message"></div> 
                 </div>
 

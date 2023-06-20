@@ -2,7 +2,7 @@
 <script>
     export let isOpen = false;
     export let recipeId = '';
-    export let value = '';
+    // export let value = '';
   
     let editedValue = '';
   

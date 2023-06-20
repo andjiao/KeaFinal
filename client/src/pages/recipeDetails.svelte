@@ -1,6 +1,7 @@
 <script>
      import { BASE_URL } from "../store/globals.js"
      import * as Toastr from "toastr"
+     import Star from "../components/star.svelte"
    
 
      const url = document.URL;
@@ -20,7 +21,7 @@
                 const result = await response.json()
                 recipe = result
                 ingredients = result.ingredients;
-                console.log(recipe)
+                console.log(recipe.rating)
 
       // Convert recipe.ingredients to an array
       recipe.ingredients = Object.entries(recipe.ingredients).map(([key, value]) => ({ name: key, quantity: value }));
@@ -37,6 +38,10 @@
 }
 
 getRecipe();
+
+setTimeout(() => {
+    recipe.rating = recipe.rating; // Update the rating dynamically
+  }, 3000);
     
    
 </script>
@@ -56,6 +61,7 @@ getRecipe();
         {/each}
       </ul>
       <p>{recipe.method}</p>
+      <Star rate={recipe.rating}/>
   
     </div>
 

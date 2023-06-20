@@ -125,6 +125,8 @@ function openModal(recipeId) {
     {#each recipes as recipe}
       <li>
         <Link to={`recipeDetails/${recipe._id}`}>{recipe.title}</Link>
+        
+       
         <form action="/">
           <button type="submit" id="deleteRecipe" class="btn btn-outline-danger btn-sm" on:click={(_id)=> deleteRecipe(recipe._id)}>
             <i class="mi mi-delete"><span class="u-sr-only"></span></i> 
@@ -137,8 +139,7 @@ function openModal(recipeId) {
 
       </li>
     {/each} 
-    <EditModal {isOpen} {recipeId:selectedRecipeId} {value} />
-
+  
   </ul>   
 
 
