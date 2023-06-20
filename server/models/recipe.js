@@ -13,16 +13,11 @@ const recipeSchema = new mongoose.Schema({
     numbIngre: String,
     ingredients: [ingredientSchema],
     method: String,
-    categories: [categorySchema],
+    categories:[categorySchema],
     type:[String ],
-    rating:{
-        type: Number,
-        default: 0,
-    },
-    numbReview: {
-        type: Number,
-        default:0,
-    },
+    rating: Number,
+    averageRating: Number,
+    ratingCount: { type: Number, default: 0 },
     level: String
 });
 
@@ -30,7 +25,7 @@ const Recipe = mongoose.model("recipes", recipeSchema);
 
 function validateRecipe(memberSchema) {
     const schema = Joi.object({
-      title:Joi.string().min(2).max(255).required(),
+      title:Joi.string().min(2).max(255).required,
       prepTime:Joi.string(),
       numbPersons:Joi.number(),
       numbIngre:Joi.number(),
@@ -39,7 +34,6 @@ function validateRecipe(memberSchema) {
       categories: Joi.array(),
       type: Joi.array(),
       rating: Joi.number(),
-      numbReview: Joi.number(),
       level: Joi.string()
    
     });

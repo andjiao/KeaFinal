@@ -2,6 +2,7 @@
      import { BASE_URL } from "../store/globals.js"
      import * as Toastr from "toastr"
      import Star from "../components/star.svelte"
+     import RateRecipe from "../components/RateRecipe.svelte"
    
 
      const url = document.URL;
@@ -21,7 +22,7 @@
                 const result = await response.json()
                 recipe = result
                 ingredients = result.ingredients;
-                console.log(recipe.rating)
+                console.log("this is the rating", recipe.rating)
 
       // Convert recipe.ingredients to an array
       recipe.ingredients = Object.entries(recipe.ingredients).map(([key, value]) => ({ name: key, quantity: value }));
@@ -62,6 +63,8 @@ setTimeout(() => {
       </ul>
       <p>{recipe.method}</p>
       <Star rate={recipe.rating}/>
+      <RateRecipe recipeId={recipe._id}/>
+      <p>Number of times this recipe has been rated {recipe.ratingCount}</p>
   
     </div>
 

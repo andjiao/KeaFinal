@@ -45,10 +45,8 @@ router.get('/', async (req, res) => {
     res.send(recipes);
   });
 
-
-
   router.put('/:id', async (req, res) => {
-    // const { error } = validate(req.body); 
+    const { error } = validate(req.body); 
     if (error) return res.status(400).send(error.details[0].message);
     const recipe = await Recipe.findByIdAndUpdate(req.params.id,{
         
@@ -69,7 +67,48 @@ router.get('/', async (req, res) => {
 
     res.send(recipe)
   }
-  )
+  );
+
+
+
+  router.put('/:id/rateRecipe', async (req, res) => {
+    const { rating } = req.body;
+  
+    try {
+      // Check if the recipe with the given ID exists
+      const recipe = await Recipe.findById(req.params.id);
+  
+      if (!recipe) {
+        return res.status(404).send('The recipe with the given ID was not found.');
+      }
+  
+      // Update the rating and rating count
+      recipe.rating = ((recipe.rating * recipe.ratingCount) + rating) / (recipe.ratingCount + 1);
+      recipe.ratingCount += 1;
+  
+      // Calculate the average rating
+      const averageRating = recipe.ratingCount === 0 ? 0 : Math.ceil(recipe.rating);
+      
+      // Update the averageRating field
+      recipe.averageRating = averageRating;
+
+      // Save the updated recipe
+      await recipe.save();
+  
+      res.status(200).json({
+        message: 'Rating saved successfully',
+        averageRating: averageRating, 
+        ratingCount: recipe.ratingCount,
+      });
+      
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'An error occurred' });
+    }
+  });
+  
+  
+
 
   router.delete('/:id', async (req, res) => {
     const recipe = await Recipe.findByIdAndRemove([req.params.id]);
