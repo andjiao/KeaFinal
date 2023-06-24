@@ -42,6 +42,4 @@ function validateRecipe(memberSchema) {
   }
 
 
-
-
 export {Recipe, validateRecipe as validate};

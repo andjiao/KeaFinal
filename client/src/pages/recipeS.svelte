@@ -6,18 +6,13 @@
   import {BASE_URL} from "../store/globals.js"
   import * as Toastr from 'toastr'
   
-  
 import { Router,Link, useNavigate } from 'svelte-navigator';
 const navigate = useNavigate()
 
-import EditModal from './editModal.svelte';
 
-import Modal from 'svelte-simple-modal'
+import Card from "../components/Card.svelte"
 
 let recipes = []
-
-let titleInput="";
-let methodInput =""
   
 async function fetchRecipes() {
 
@@ -58,91 +53,30 @@ try {
 }
     fetchRecipes()
 
-    async function updateRecipe(recipeId){
-
-const body = {
-          title: titleInput,
-          method:methodInput ,
-      }
-      try {
-          const response = await fetch(`${$BASE_URL}/recipes/${recipeId}`, {
-          method: 'PUT',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(body)
-      })
-
-      if (!response.ok) {
-          const json = await response.json()
-          Toastr.warning(json.message)
-          return
-      } else{
-        Toastr.success('Recipe Updated.')
-        navigate(`/`,{replace:true})
-
-      }
-        
-      } catch  {
-          Toastr.error('Could not update')
-          return
-      }
-}
-
-
-    async function deleteRecipe(recipeId) {
-
-try {
-    const response = await fetch(`${$BASE_URL}/recipes/${recipeId}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' }
-    })
-
-    if (!response.ok) {
-        const json = await response.json()
-        Toastr.warning(json.message)
-        return
-    } else{
-    recipes = recipes.filter(recipe => recipe.id != recipeId)
-    }
-
-    
-} catch (error){
-    Toastr.error('Could not delete student')
-}
-return recipes;
-
-}
-let isModalOpen = false;
-  let selectedRecipeId = '';
-
-function openModal(recipeId) {
-    isModalOpen = true;
-    selectedRecipeId = recipeId;
+    function handleIconClick(recipeId, isIconActive) {
+    // console.log(`Recipe ${recipeId} isIconActive: ${isIconActive}`);
   }
+
   
 </script>
-<div>
-  <ul>
-    {#each recipes as recipe}
-      <li>
-        <Link to={`recipeDetails/${recipe._id}`}>{recipe.title}</Link>
-        
-       
-        <form action="/">
-          <button type="submit" id="deleteRecipe" class="btn btn-outline-danger btn-sm" on:click={(_id)=> deleteRecipe(recipe._id)}>
-            <i class="mi mi-delete"><span class="u-sr-only"></span></i> 
-          </button>
-        </form> 
 
-        <button id="updateRecipe" class="btn btn-outline-info btn-sm" on:click={()=>openModal(recipe._id)}>
-          <i class="mi mi-edit-alt"><span class="u-sr-only"></span></i>    
-        </button>
+<div class="category-box">
+  {#each recipes as recipe}
+  <Card 
+  title={recipe.title} 
+  rating ={recipe.rating}
+  recipeId={recipe._id}
+  />
+  {/each}
 
-      </li>
-    {/each} 
-  
-  </ul>   
+</div>
+
+<style>
+ 
+</style>
+ 
+ 
 
 
   
-    </div>
   

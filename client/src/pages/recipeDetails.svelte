@@ -67,8 +67,6 @@ setTimeout(() => {
       <p>Number of times this recipe has been rated {recipe.ratingCount}</p>
   
     </div>
-
-
   <style>
 
   </style>
