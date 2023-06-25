@@ -12,15 +12,12 @@ const navigate = useNavigate()
 
 import Card from "../components/Card.svelte"
 
-let recipes = []
-  
+let recipes = [] 
 async function fetchRecipes() {
-
 try {
   const response = await fetch(`${$BASE_URL}/recipes`)
   if(response.ok) {
     const result = await response.json();
-    // $user.id = result.userid
     recipes = result;
     } else {
         const data = await response.json()
@@ -60,7 +57,7 @@ try {
   
 </script>
 
-<div class="category-box">
+
   {#each recipes as recipe}
   <Card 
   title={recipe.title} 
@@ -69,7 +66,7 @@ try {
   />
   {/each}
 
-</div>
+
 
 <style>
  

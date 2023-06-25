@@ -85,8 +85,6 @@
           </span>
         {/each}
       </div>
-      
-      <p>ratingInput: {ratingInput}</p>
 
 </form>
   

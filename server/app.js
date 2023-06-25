@@ -38,17 +38,6 @@ app.use('/api/recipes', recipeRouter)
 import  memberRoute from './routes/memberRoute.js';
 app.use('/api/members', memberRoute);
 
-
-/* 
-
-import signinRoute from "./routes/signinRoute.js";
-app.use("/api", signinRoute)
-
-
-import myListsRoute from "./routes/myListsRoute.js";
-app.use("/api/members/myLists", myListsRoute) */
-
-
 const PORT = process.env.PORT || 8080;
 
 const server = app.listen(PORT,(error)=>{

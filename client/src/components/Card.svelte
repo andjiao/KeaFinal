@@ -1,29 +1,18 @@
 
 <script>
-     import { onMount } from 'svelte';
-    import { Router,Link, useNavigate } from 'svelte-navigator';
-    const navigate = useNavigate()
-
+    import { Link } from 'svelte-navigator';
+    
     import Star from "./star.svelte"
     export let title;
     export let rating;
     export let recipeId;
-    // export let handleIconClick;
-   
+  
     let isIconActive =false;
     function handleClick() {
     isIconActive = !isIconActive;
   }
-
-
- /*  function handleClick() {
-    isIconActive = !isIconActive;
-    handleIconClick(recipeId, isIconActive);
-  } */
-
-
-
 </script>
+
 <svelte:head>
     <link rel="stylesheet" href="https://unpkg.com/mono-icons@1.0.5/iconfont/icons.css">
 </svelte:head>
@@ -46,8 +35,6 @@
             <Star rate={rating} />
         </div>
     </div>
-
-
 
 
 <style>
@@ -79,7 +66,10 @@
   .card__icon {
     border: solid black;
     font-size: 24px;
-    padding-bottom: 0.5px;
+    padding-top: 5px;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: #E6E6E6;
   }
 
   .card__icon.mi-heart.active {

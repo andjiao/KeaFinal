@@ -11,8 +11,6 @@
   import NavBar from "./components/Navbar.svelte";
   import { Route, Router } from 'svelte-navigator'
   
-  
-// <Route path="/reviewRecipe/:id"> <Recipe/> </Route>
   </script>
   
   <main>
@@ -20,18 +18,11 @@
       <NavBar></NavBar>
         <Route path="/" primary={false}> <Recipes/> </Route>
         <Route path="/recipeDetails/:id"> <RecipeDetails/> </Route>
-       
-
         <Route path="/login"> <Login /> </Route>
         <Route path="/signup"> <Signup /> </Route>
-       
-      
         <Route path="/myProfile"> <MyProfile/> </Route>
         <Route path="/myLists"> <MyLists/> </Route>
         <Route path="/createRecipe"> <CreateRecipe/> </Route>
-        
-        
-      
     </Router>
   
   </main>

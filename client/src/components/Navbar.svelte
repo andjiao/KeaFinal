@@ -48,8 +48,7 @@ Toastr.error('Could not logout.')
       </label>
     </div>
 
-    <div class="nav-links">
-      
+    <div class="nav-links"> 
     {#if !$user}
       <a class="nav-links" href="/signup">
         Signup
@@ -57,7 +56,6 @@ Toastr.error('Could not logout.')
        <a class="nav-links" href="/login">
          Login
        </a>
-
     {:else} 
       <a class="nav-links"href="/myProfile"> My Profile</a>
       <a  class="nav-links" href="/myLists">
@@ -66,10 +64,10 @@ Toastr.error('Could not logout.')
       <a class="nav-links" href="/createRecipe">
         Create Recipes
       </a>
-        <button class="nav-link" on:click={logout} >Logout</button>        
-    
+        <button class="nav-link" on:click={logout} >Logout</button>         
     {/if}
   </div> 
+  
 </div>
  
  
@@ -85,6 +83,7 @@ Toastr.error('Could not logout.')
   width: 100%;
   background-color: #F4A460;
   position: relative;
+  z-index: 999;
 }
 
 .nav > .nav-header {
@@ -172,4 +171,3 @@ Toastr.error('Could not logout.')
   } */
 }
 </style>
-
