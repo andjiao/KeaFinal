@@ -1,8 +1,17 @@
+<svelte:head>
+    <link rel="stylesheet" href="https://unpkg.com/mono-icons@1.0.5/iconfont/icons.css">
+</svelte:head>
+
 <script>
+// @ts-nocheck
+
      import { BASE_URL } from "../store/globals.js"
      import * as Toastr from "toastr"
      import Star from "../components/star.svelte"
      import RateRecipe from "../components/RateRecipe.svelte"
+
+     import { Router, Link, useNavigate } from 'svelte-navigator'
+    const navigate = useNavigate()
    
 
      const url = document.URL;
@@ -37,8 +46,26 @@
     return recipe;
     
 }
-
 getRecipe();
+
+async function deleteRecipe() {
+    try {
+      const response = await fetch(`${$BASE_URL}/recipes/${recipeId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (response.ok) {
+        navigate('/', { replace: true })
+        Toastr.success('Recipe deleted');
+      } else {
+        Toastr.warning('Failed to delete recipe');
+      }
+    } catch (error) {
+      Toastr.error('Failed to delete recipe');
+    }
+  }  
+
 
 setTimeout(() => {
     recipe.rating = recipe.rating; // Update the rating dynamically
@@ -49,19 +76,21 @@ setTimeout(() => {
     isIconActive = !isIconActive;
   }
     
+  function handleDeleteClick() {
+    deleteRecipe();
+  }
    
 </script>
-
-<svelte:head>
-    <link rel="stylesheet" href="https://unpkg.com/mono-icons@1.0.5/iconfont/icons.css">
-</svelte:head>
 
 
 <div class="recipe">
   <div class="recipe__bookmark">
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <i class:active="{isIconActive}" class="mi mi-bookmark recipe__bookmark__icon" 
-    on:click="{handleClick}"></i>
+    on:click={handleClick}></i>
+    <!-- svelte-ignore missing-declaration -->
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <i class="mi mi-delete recipe__delete__icon" on:click={handleDeleteClick}></i>
   </div>
 
   <div class="recipe__header">
@@ -123,7 +152,7 @@ setTimeout(() => {
 
       .recipe__bookmark{
         position: absolute;
-        top: 20%;
+        top: 10%;
         margin-top: 10px;
         margin-right: 20px;
         margin-left: 50%;
@@ -141,12 +170,16 @@ setTimeout(() => {
     background-color: #CD5C5C;
   }
 
+  .recipe__bookmark__icon:hover {
+    cursor: pointer;
+   
+  }
   .recipe__header {
     position: absolute;
-    top: 12%;
+    top: 15%;
     margin-top: 100px;
     margin-right: 20px;
-    margin-left: 35%;
+    margin-left: 25%;
     display: flex;
     width:100%; 
   }
@@ -185,7 +218,7 @@ setTimeout(() => {
   top: 40%;
   margin-top: 100px;
   margin-right: 20px;
-  margin-left: 50%;
+  margin-left: 45%;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -210,7 +243,14 @@ setTimeout(() => {
     display: flex;
     flex-wrap: wrap;
     width:100%;
+}
+.recipe__delete__icon{
+  font-size: 30px; 
+  margin-left:5px;
 
+}
+.recipe__delete__icon:hover{
+  cursor: pointer;
 }
 
   </style>
