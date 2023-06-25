@@ -25,7 +25,7 @@ const Recipe = mongoose.model("recipes", recipeSchema);
 
 function validateRecipe(memberSchema) {
     const schema = Joi.object({
-      title:Joi.string().min(2).max(255).required,
+      title:Joi.string().min(2).max(255).required(),
       prepTime:Joi.string(),
       numbPersons:Joi.number(),
       numbIngre:Joi.number(),
@@ -35,7 +35,6 @@ function validateRecipe(memberSchema) {
       type: Joi.array(),
       rating: Joi.number(),
       level: Joi.string()
-   
     });
   
     return schema.validate(memberSchema);

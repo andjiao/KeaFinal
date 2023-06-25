@@ -66,7 +66,7 @@ setTimeout(() => {
 
   <div class="recipe__header">
     <div class="recipe__header-content">
-      <h1 style={"font-size:50px;"}>{recipe.title}</h1>
+      <h1 style="font-size: 50px; white-space: pre-line;">{recipe.title}</h1>
       <Star rate={recipe.rating}/>
       <p>Reviewed {recipe.ratingCount} times</p>
     </div>
@@ -80,8 +80,8 @@ setTimeout(() => {
         {#each ingredients as ingredient}
           <li>
             <div class="ingredient-item">
-              <p>Name: {ingredient.name}</p>
-            <p>amount: {ingredient.quantity}</p>
+              <p style="margin-right: 5px;">{ingredient.name}</p>
+              <p style="margin-left: 5px;">{ingredient.quantity}</p>            
             
           </div>
           </li>
@@ -175,6 +175,7 @@ setTimeout(() => {
   }
   .ingredient-item {
     display: flex;
+    margin-left: 2px;
     margin-right: 20px;
   }
 

@@ -45,7 +45,7 @@
             try {
                 const response = await fetch(`${$BASE_URL}/recipes/createRecipe`,{
                 method: 'POST',
-                //credentials: 'include',
+                credentials: 'include',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(recipeData)
 
